@@ -1,37 +1,880 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turkey Time</title>
-    <link rel="stylesheet" href="style.css">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Thanksgiving Turkey | CSS Live Demo</title>
+   <!--
+  HONORS ADVANCED WEB DESIGN 2 | CSS LIVE DEMO
+
+  “Thanksgiving Turkey” by Álvaro Montoro
+  https://codepen.io/alvaromontoro/pen/GRjKBvp
+  Original HTML and CSS, with classroom comments added.
+
+  BEFORE CLASS
+  Open this file in a browser as your finished reference. Save a second
+  copy as index.html. In that copy, remove the CSS from STEP 1 through
+  the last .tail:nth-child rule. Keep the three page setup rules, the
+  corner badge styles and all the HTML. Have the two files open side
+  by side in VS Code. Save and refresh after each step.
+
+  LIVE-CODING ORDER | ABOUT 30 MINUTES
+  1. Body (4 min) — Center the rectangle, then round it into a circle.
+  2. Wings (4 min) — Draw one wing and mirror the other.
+  3. Head, neck and face (7 min) — Reveal the neck with ::before.
+     Then add the two eyes, triangle beak and red snood.
+  4. Legs and toes (4 min) — Reuse one leg style and rotate the toes.
+  5. Hat (4 min) — Build the brim and crown, then add the buckle.
+  6. Feather fan (7 min) — Start with one visible feather. Rotate
+     around its base, then reveal the full fan and alternating colors.
+
+  QUICK CLASS CHECK
+  Ask students to point to one example of symmetry and one of repetition.
+  For a DevTools experiment, toggle the neck's ::before rule or change a
+  feather's pivot. Refresh to bring back the original design.
+
+  MIT License
+  Copyright (c) 2020 Álvaro Montoro
+
+  Permission is hereby granted, free of charge, to any person obtaining
+  a copy of this software and associated documentation files (the
+  "Software"), to deal in the Software without restriction, including
+  without limitation the rights to use, copy, modify, merge, publish,
+  distribute, sublicense, and/or sell copies of the Software, and to
+  permit persons to whom the Software is furnished to do so, subject to
+  the following conditions:
+
+  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+   <style>
+      /* PAGE SETUP
+   Keep these three rules in the live-coding copy. */
+      html,
+      body {
+         overflow: hidden;
+         width: 100%;
+         height: 100%;
+         margin: 0;
+         background:
+            radial-gradient(circle at 8% 12%, #fff 0 0.18vmin, rgba(167, 224, 255, 0.9) 0.22vmin 0.34vmin, transparent 0.42vmin),
+            radial-gradient(circle at 31% 9%, #fff 0 0.16vmin, rgba(167, 224, 255, 0.85) 0.2vmin 0.3vmin, transparent 0.38vmin),
+            radial-gradient(circle at 49% 18%, #fff 0 0.2vmin, rgba(167, 224, 255, 0.9) 0.24vmin 0.38vmin, transparent 0.46vmin),
+            radial-gradient(circle at 91% 11%, #fff 0 0.18vmin, rgba(167, 224, 255, 0.9) 0.22vmin 0.34vmin, transparent 0.42vmin),
+            radial-gradient(circle at 25% 38%, #fff 0 0.17vmin, rgba(167, 224, 255, 0.85) 0.21vmin 0.32vmin, transparent 0.4vmin),
+            radial-gradient(circle at 67% 8%, #fff 0 0.2vmin, rgba(167, 224, 255, 0.9) 0.24vmin 0.38vmin, transparent 0.46vmin),
+            radial-gradient(circle at 87% 38%, #fff 0 0.17vmin, rgba(167, 224, 255, 0.85) 0.21vmin 0.32vmin, transparent 0.4vmin),
+            radial-gradient(circle at 7% 48%, #fff 0 0.18vmin, rgba(167, 224, 255, 0.9) 0.22vmin 0.34vmin, transparent 0.42vmin),
+            linear-gradient(to bottom, #071225 0%, #142544 100%);
+         background-repeat: no-repeat;
+         background-size: 100% 100%;
+      }
+
+      body::before {
+         content: "";
+         position: fixed;
+         inset: 54% 0 0;
+         background:
+            radial-gradient(ellipse 1.8vmin 0.8vmin at 16% 57%, #8e5039 0 68%, transparent 72%),
+            radial-gradient(ellipse 1.3vmin 0.65vmin at 83% 70%, #925239 0 68%, transparent 72%),
+            radial-gradient(ellipse 1.1vmin 0.6vmin at 70% 88%, #9a583a 0 68%, transparent 72%),
+            repeating-linear-gradient(172deg,
+               transparent 0 4.4vmin,
+               rgba(92, 48, 34, 0.11) 4.5vmin 4.7vmin,
+               transparent 4.8vmin 7.2vmin),
+            radial-gradient(ellipse 72% 95% at 8% 100%, #d58b4b 0 57%, transparent 58%),
+            radial-gradient(ellipse 82% 105% at 100% 100%, #b9673d 0 56%, transparent 57%),
+            radial-gradient(ellipse 78% 92% at 54% 115%, #e5a553 0 57%, transparent 58%),
+            linear-gradient(to bottom, #966049 0%, #c47a48 48%, #d8904d 100%);
+         clip-path: polygon(0 24%, 14% 28%, 31% 35%, 49% 20%, 66% 30%, 83% 12%, 100% 23%, 100% 100%, 0 100%);
+         pointer-events: none;
+         z-index: 0;
+      }
+
+      body::after {
+         content: "";
+         position: fixed;
+         width: 24vmin;
+         height: 3vmin;
+         left: 50%;
+         bottom: 10%;
+         transform: translateX(-50%);
+         background: radial-gradient(ellipse, rgba(48, 28, 22, 0.48), rgba(48, 28, 22, 0.16) 48%, transparent 74%);
+         pointer-events: none;
+         z-index: 1;
+      }
+
+      .sun-pair {
+         position: fixed;
+         top: 13%;
+         right: 10%;
+         display: flex;
+         align-items: center;
+         gap: 0.8vmin;
+         z-index: 1;
+      }
+
+      .sun {
+         position: relative;
+         flex: none;
+         width: 6vmin;
+         aspect-ratio: 1;
+         border-radius: 50%;
+         background:
+            radial-gradient(circle at 28% 32%, rgba(255, 190, 130, 0.75) 0 8%, transparent 9%),
+            radial-gradient(ellipse at 68% 64%, rgba(112, 26, 39, 0.34) 0 11%, transparent 12%),
+            radial-gradient(circle at 72% 25%, rgba(255, 205, 145, 0.55) 0 5%, transparent 6%),
+            radial-gradient(ellipse at 40% 72%, rgba(112, 26, 39, 0.3) 0 7%, transparent 8%),
+            linear-gradient(145deg, #ff8068 0%, #d4433e 52%, #8e2635 100%);
+         box-shadow: inset -0.8vmin -0.7vmin 1vmin rgba(72, 20, 35, 0.32);
+      }
+
+      .sun::before {
+         content: "";
+         position: absolute;
+         inset: -42%;
+         border-radius: 50%;
+         background: radial-gradient(circle, rgba(222, 77, 65, 0.28) 0 42%, rgba(222, 77, 65, 0.12) 60%, transparent 72%);
+         z-index: -1;
+      }
+
+      .sun.small {
+         width: 4.5vmin;
+         margin-top: 2vmin;
+      }
+
+      .spaceship {
+         position: fixed;
+         width: 15vmin;
+         height: 8vmin;
+         top: 36%;
+         left: 6%;
+         transform: rotate(-8deg);
+         filter: drop-shadow(0 0 0.8vmin rgba(112, 220, 255, 0.5));
+         z-index: 1;
+      }
+
+      .spaceship > div {
+         position: absolute;
+         box-sizing: border-box;
+      }
+
+      .ship-wing {
+         width: 76%;
+         height: 38%;
+         left: 8%;
+         background:
+            repeating-linear-gradient(90deg, transparent 0 1.4vmin, rgba(220, 240, 245, 0.25) 1.45vmin 1.55vmin, transparent 1.6vmin 2.8vmin),
+            linear-gradient(135deg, #d4dfe0, #657d8a 48%, #344c60);
+         border: 0.2vmin solid #bacbd0;
+         clip-path: polygon(0 8%, 100% 0, 81% 100%, 12% 84%);
+      }
+
+      .ship-wing.upper {
+         top: 2%;
+      }
+
+      .ship-wing.lower {
+         bottom: 2%;
+         transform: scaleY(-1);
+      }
+
+      .ship-body {
+         width: 100%;
+         height: 26%;
+         top: 37%;
+         left: 0;
+         background: linear-gradient(to bottom, #e1e9e9, #758b95 46% 65%, #344b5c);
+         border: 0.2vmin solid #c5d5d9;
+         clip-path: polygon(0 17%, 74% 17%, 100% 50%, 74% 83%, 0 83%, 13% 50%);
+      }
+
+      .ship-cockpit {
+         width: 31%;
+         height: 24%;
+         top: 38%;
+         left: 46%;
+         border-radius: 50% 35% 35% 50%;
+         background: linear-gradient(145deg, #d9fbff 0 14%, #5db2cb 24% 58%, #1b4764 100%);
+         border: 0.22vmin solid #d5f3f5;
+         box-shadow: inset 0 0.25vmin 0.35vmin rgba(255,255,255,0.7);
+      }
+
+      .ship-engine {
+         width: 25%;
+         height: 18%;
+         left: 0;
+         border-radius: 30%;
+         background: linear-gradient(to bottom, #8297a0, #344b5c);
+         border: 0.18vmin solid #bdcdd0;
+      }
+
+      .ship-engine.upper {
+         top: 28%;
+      }
+
+      .ship-engine.lower {
+         bottom: 28%;
+      }
+
+      .ship-engine::before {
+         content: "";
+         position: absolute;
+         width: 55%;
+         height: 52%;
+         left: -48%;
+         top: 24%;
+         border-radius: 50%;
+         background: linear-gradient(90deg, #fff, #63e7ff 55%, rgba(68, 173, 255, 0.15));
+         box-shadow: 0 0 0.6vmin #68eaff, 0 0 1.3vmin rgba(80, 207, 255, 0.8);
+      }
+
+      .ship-marking {
+         width: 11%;
+         height: 8%;
+         left: 25%;
+         top: 46%;
+         background: #d9574d;
+         box-shadow: 0 0.65vmin 0 #d9574d;
+      }
+
+      .ship-fin {
+         width: 13%;
+         height: 22%;
+         right: 3%;
+         top: 39%;
+         background: linear-gradient(90deg, #718894, #c6d3d5);
+         clip-path: polygon(0 0, 100% 25%, 100% 75%, 0 100%);
+      }
+
+      /* Reuse the palette below. Both sides use vmin, so the square scales
+   with the shorter side of the browser window. top and left put its
+   corner at the center. translate pulls it back by half its own size. */
+      .cartoon {
+         --brown1: #753;
+         --brown2: #975;
+         --orange1: orange;
+         --orange2: darkorange;
+         width: 80vmin;
+         height: 80vmin;
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%) scale(0.9);
+         z-index: 2;
+      }
+
+      .desert-hut {
+         position: fixed;
+         width: 17vmin;
+         height: 11vmin;
+         left: 10%;
+         bottom: 24%;
+         background:
+            linear-gradient(90deg, transparent 22%, #4b3024 22% 25%, transparent 25% 75%, #4b3024 75% 78%, transparent 78%),
+            linear-gradient(to bottom, transparent 0 58%, #563524 58% 100%),
+            linear-gradient(90deg, #c58a52, #9e623e);
+         border: 0.45vmin solid #70452e;
+         box-shadow: inset 0 0 2vmin rgba(65, 36, 22, 0.22), 0 1vmin 1vmin rgba(91, 48, 25, 0.2);
+         z-index: 1;
+      }
+
+      .desert-hut::before {
+         content: "";
+         display: block;
+         position: absolute;
+         width: 124%;
+         height: 55%;
+         left: -12%;
+         top: -48%;
+         background:
+            repeating-linear-gradient(165deg,
+               transparent 0 16%,
+               rgba(255, 205, 132, 0.24) 16% 19%,
+               transparent 19% 34%),
+            #70432d;
+         border: 0.45vmin solid #503222;
+         clip-path: polygon(50% 0, 100% 100%, 0 100%);
+      }
+
+      .desert-hut::after {
+         content: "";
+         display: block;
+         position: absolute;
+         width: 24%;
+         height: 52%;
+         left: 38%;
+         bottom: 0;
+         background:
+            radial-gradient(circle at 78% 52%, #e1b06a 0 0.25vmin, transparent 0.35vmin),
+            linear-gradient(90deg, #573522, #74462c);
+         border: 0.35vmin solid #70452e;
+         border-bottom: 0;
+      }
+
+      /* Absolute positioning lets the parts overlap. Offsets use the nearest
+   positioned ancestor. Most parts use .cartoon. The face uses .head
+   because its parts are nested inside it. border-box keeps borders
+   inside the declared width and height. */
+      .cartoon div {
+         position: absolute;
+         box-sizing: border-box;
+      }
+
+      /* STEP 1 | BODY
+   Width and height are both 40% of the square canvas. Set the color
+   and refresh to see the square, then use border-radius to round it. */
+      .body {
+         width: 40%;
+         height: 40%;
+         background: var(--brown1);
+         color: var(--brown1);
+         border-radius: 50%;
+         /* left measures from the canvas. translate measures from the body.
+    Together they center the body horizontally. */
+         top: 40%;
+         left: 50%;
+         transform: translate(-50%, 0);
+         /* Two sharp shadows shrink and shift down to add small details where
+    the legs meet the body. They pick up the CSS color. */
+         box-shadow:
+            -4vmin 14.5vmin 0 -13vmin,
+            4vmin 14.5vmin 0 -13vmin
+      }
+
+      /* STEP 2 | WINGS
+   Rounded and sharp corners shape the wing. Use the top-right corner
+   as the pivot so the wing tilts from where it meets the body. */
+      .wing {
+         height: 30%;
+         width: 20%;
+         background: var(--brown2);
+         border-radius: 100% 0% 100% 5%;
+         top: 41%;
+         left: 23%;
+         transform-origin: top right;
+         transform: rotate(-10deg);
+      }
+
+      /* The + selects the wing immediately after the first one. left: auto
+   clears the shared left offset so right can place it. scaleX(-1)
+   mirrors both the shape and its tilt. */
+      .wing+.wing {
+         left: auto;
+         right: 43%;
+         transform: scaleX(-1) rotate(-10deg);
+      }
+
+      /* Tan Jedi-style robe draped over the turkey's body and wings. */
+      .robe {
+         width: 42%;
+         height: 47%;
+         top: 35%;
+         left: 50%;
+         transform: translate(-50%, 0);
+         background:
+            repeating-linear-gradient(102deg,
+               rgba(255, 255, 255, 0.06) 0 1.2%,
+               transparent 1.2% 8%),
+            linear-gradient(90deg,
+               transparent 0 46%,
+               #a56e3f 46% 48%,
+               #5d3d28 48% 52%,
+               #a56e3f 52% 54%,
+               transparent 54%),
+            linear-gradient(to bottom,
+               transparent 0 68%,
+               #5d3d28 68% 76%,
+               #80603d 76% 78%,
+               transparent 78%);
+         background-color: #c7a77d;
+         border: 0.45vmin solid #80603d;
+         border-radius: 38% 38% 18% 18%;
+         clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+         box-shadow:
+            inset 2vmin 1vmin 2vmin rgba(255, 230, 180, 0.18),
+            inset -2vmin 1vmin 2vmin rgba(90, 55, 28, 0.20),
+            0 1vmin 1vmin rgba(80, 45, 20, 0.16);
+         z-index: 2;
+      }
+
+      .robe::before,
+      .robe::after {
+         content: "";
+         display: block;
+         position: absolute;
+      }
+
+      .robe::before {
+         width: 45%;
+         height: 34%;
+         left: 50%;
+         top: 0;
+         transform: translate(-50%, 0);
+         background:
+            radial-gradient(circle at 50% 85%, #80603d 0 16%, transparent 17%),
+            linear-gradient(135deg, #d1ba92 0 48%, #ad9068 49% 52%, #bda373 53%);
+         border: 0.45vmin solid #80603d;
+         border-radius: 70% 70% 18% 18%;
+         clip-path: polygon(12% 0, 88% 0, 100% 100%, 0 100%);
+      }
+
+      .robe-sleeve {
+         width: 28%;
+         height: 58%;
+         top: 18%;
+         background: #b99a70;
+         border: 0.45vmin solid #80603d;
+         border-radius: 70% 45% 55% 70%;
+      }
+
+      .robe-sleeve.left {
+         left: -18%;
+         transform: rotate(18deg);
+         z-index: -1;
+      }
+
+      .robe-sleeve.right {
+         right: -18%;
+         transform: scaleX(-1) rotate(18deg);
+         z-index: -1;
+      }
+
+      .robe-arm {
+         width: 11%;
+         height: 22%;
+         top: 36%;
+         left: 55%;
+         transform: rotate(-30deg);
+         transform-origin: 50% 0;
+         background:
+            repeating-linear-gradient(105deg,
+               transparent 0 18%,
+               rgba(255, 235, 190, 0.18) 18% 20%,
+               transparent 20% 38%),
+            linear-gradient(90deg, #80603d, #c7a77d 22% 72%, #94744e);
+         border: 0.45vmin solid #80603d;
+         border-radius: 45% 45% 28% 28%;
+         box-shadow: inset 0.8vmin 0 1vmin rgba(255, 235, 190, 0.2);
+         z-index: 4;
+      }
+
+      .robe-arm::after {
+         content: "";
+         display: block;
+         position: absolute;
+         width: 100%;
+         height: 18%;
+         bottom: 2%;
+         background:
+            repeating-linear-gradient(90deg,
+               #80603d 0 0.3vmin,
+               #d4bd94 0.3vmin 0.8vmin);
+         border-top: 0.35vmin solid #80603d;
+         border-bottom: 0.35vmin solid #80603d;
+         border-radius: 20%;
+      }
+
+      .robe-arm.left {
+         top: 36%;
+         left: 34%;
+         transform: rotate(30deg);
+      }
+
+      .lightsaber {
+         width: 3%;
+         height: 9vmin;
+         top: 53%;
+         left: 72%;
+         transform: translate(-50%, 0) rotate(28deg);
+         transform-origin: 50% 100%;
+         border-radius: 0.4vmin;
+         background:
+            linear-gradient(90deg,
+               #222 0 18%,
+               #777 18% 28%,
+               #d8d8d8 28% 72%,
+               #777 72% 82%,
+               #222 82%);
+         border: 0.2vmin solid #333;
+         box-shadow:
+            inset 0 1.1vmin 0 #8a4f22,
+            inset 0 1.4vmin 0 #c39a55,
+            inset 0 -1vmin 0 #111;
+         z-index: 6;
+      }
+
+      .lightsaber::before {
+         content: "";
+         display: block;
+         position: absolute;
+         width: 70%;
+         height: 31vmin;
+         left: 50%;
+         bottom: 88%;
+         transform: translate(-50%, 0);
+         border-radius: 70% 70% 12% 12%;
+         background:
+            linear-gradient(90deg,
+               rgba(255,255,255,0.9) 0 20%,
+               #66eaff 20% 48%,
+               #fff 48% 58%,
+               #66eaff 58% 80%,
+               rgba(255,255,255,0.75));
+         box-shadow:
+            0 0 1vmin #66eaff,
+            0 0 2.5vmin #66eaff,
+            0 0 5vmin rgba(102, 234, 255, 0.85);
+      }
+
+      .lightsaber::after {
+         content: "";
+         display: block;
+         position: absolute;
+         width: 145%;
+         height: 1.2vmin;
+         left: 50%;
+         bottom: -1.5vmin;
+         transform: translate(-50%, 0);
+         border-radius: 0.4vmin;
+         background: #222;
+         border: 0.15vmin solid #777;
+      }
+
+      .turkey-hand {
+         width: 5.5vmin;
+         height: 4.5vmin;
+         top: 52%;
+         left: 71%;
+         transform: translate(-50%, 0) rotate(18deg);
+         border-radius: 60% 35% 45% 55%;
+         background:
+            radial-gradient(ellipse at 38% 30%, rgba(220, 180, 130, 0.55), transparent 38%),
+            linear-gradient(135deg, #a9825d, var(--brown2) 65%, #69462e);
+         border: 0.25vmin solid rgba(70, 35, 20, 0.45);
+         box-shadow:
+            -1.2vmin -0.2vmin 0 -0.7vmin var(--brown2),
+            -2vmin 0.2vmin 0 -0.8vmin var(--brown2),
+            -2.7vmin 0.8vmin 0 -0.9vmin var(--brown2);
+         z-index: 7;
+      }
+
+      .turkey-hand::before {
+         content: "";
+         display: block;
+         position: absolute;
+         width: 48%;
+         height: 38%;
+         top: -14%;
+         right: 4%;
+         transform: rotate(-32deg);
+         border-radius: 60% 60% 35% 35%;
+         background: linear-gradient(135deg, #b18b65, var(--brown2));
+         border: 0.2vmin solid rgba(70, 35, 20, 0.4);
+      }
+
+      .turkey-hand.left {
+         top: 52%;
+         left: 29%;
+         transform: translate(-50%, 0) rotate(-18deg);
+         z-index: 5;
+      }
+
+      /* STEP 3 | HEAD, NECK AND FACE
+   Start with a circle. clip-path cuts a flat edge where the hat sits.
+   The clip extends below the circle to leave room for the neck. */
+      .head {
+         width: 19%;
+         height: 19%;
+         border-radius: 50%;
+         background: var(--brown2);
+         top: 15%;
+         left: 50%;
+         transform: translate(-50%, 0);
+         clip-path: polygon(0% 20%, 100% 20%, 100% 500%, 0% 500%);
+         z-index: 5;
+      }
+
+      /* content: "" creates a box for the neck. It starts 80% down the head
+   so the two shapes overlap. The same brown fills the join, and the
+   last two corner radii round off the bottom. Refresh here. */
+      .head::before {
+         content: "";
+         display: block;
+         position: absolute;
+         width: 40%;
+         height: 120%;
+         background: var(--brown2);
+         top: 80%;
+         left: 50%;
+         transform: translate(-50%, 0);
+         border-radius: 0 0 100% 100% / 30%;
+      }
+
+      /* Draw one black dot 2.5vmin left of center. With zero blur, its shadow
+   makes a second dot 5vmin to the right, so the eyes are evenly spaced. */
+      .eye {
+         width: 10%;
+         height: 10%;
+         background: black;
+         border-radius: 50%;
+         top: 45%;
+         left: 50%;
+         transform: translate(-50%, 0) translate(-2.5vmin, 0);
+         box-shadow: 5vmin 0
+      }
+
+      /* The top and bottom borders are transparent. They taper the orange
+   left border into a triangle that points to the right. */
+      .beak {
+         width: 4vmin;
+         height: 3vmin;
+         border-left: 4vmin solid var(--orange1);
+         border-top: 1.5vmin solid transparent;
+         border-bottom: 1.5vmin solid transparent;
+         top: 60%;
+         left: 50%;
+      }
+
+      /* The snood starts at the same center line as the beak. Shifting it
+   left by its full width places it just to the left of that line. */
+      .red {
+         width: 2.5vmin;
+         height: 6vmin;
+         background: #d00;
+         border-radius: 100% / 100% 0 100% 100%;
+         top: 60%;
+         left: 50%;
+         transform: translate(-100%, 0);
+      }
+
+      /* STEP 4 | LEGS AND TOES
+   Start both legs at the center and shift them 4vmin in opposite
+   directions. The repeating gradient adds thin stripes over the orange. */
+      .leg {
+         width: 3%;
+         height: 21%;
+         background: var(--orange1);
+         top: 79%;
+         left: 50%;
+         transform: translate(-50%, 0) translate(-4vmin, 0);
+         border-radius: 5vmin / 50%;
+         background-image:
+            repeating-linear-gradient(transparent 0 10%, rgba(0, 0, 0, 0.1) 0 11%);
+      }
+
+      .leg+.leg {
+         transform: translate(-50%, 0) translate(4vmin, 0);
+      }
+
+      /* Each leg gets two toes from the same rule. Both pivot at the top
+   center so they stay attached as they rotate. The final rule turns
+   the second toe the opposite way so the toes spread apart. */
+      .leg::before,
+      .leg::after {
+         content: "";
+         display: block;
+         position: absolute;
+         width: 80%;
+         height: 35%;
+         left: 50%;
+         bottom: 0;
+         background: var(--orange1);
+         border-radius: 5vmin;
+         transform-origin: 50% 0;
+         transform: translate(-50%, 0) rotate(30deg);
+      }
+
+      .leg::after {
+         transform: translate(-50%, 0) rotate(-30deg);
+      }
+
+      /* STEP 5 | HAT
+   Start with a wide, short oval for the brim. The inset shadow stays
+   inside the crown and paints the lighter band across the bottom. */
+      .hat-bottom {
+         width: 35%;
+         height: 8%;
+         border-radius: 50%;
+         background: black;
+         top: 15%;
+         left: 50%;
+         transform: translate(-50%, 0);
+      }
+
+      .hat-top {
+         width: 16%;
+         height: 20%;
+         background: black;
+         box-shadow: inset 0 -7vmin #fff3;
+         border-radius: 100% / 230% 230% 0% 0%;
+         top: 0;
+         left: 50%;
+         transform: translate(-50%, 0);
+      }
+
+      /* A small bordered box makes the buckle. Its position is measured
+   from the crown, so it follows the hat if the hat moves. */
+      .hat-top::before {
+         content: "";
+         display: block;
+         position: absolute;
+         width: 40%;
+         height: 2vmin;
+         border: 1vmin solid #772;
+         border-radius: 1vmin;
+         bottom: 3.25vmin;
+         left: 50%;
+         transform: translate(-50%, 0);
+      }
+
+      /* STEP 6 | ALL 13 TAIL FEATHERS
+   All 13 feathers overlap until their angles differ. The feather divs
+   come first in the HTML, so the rest of the turkey paints over them. */
+      .tail {
+         width: 10%;
+         height: 40%;
+         background: var(--orange1);
+         border-radius: 100% / 30% 30% 170% 170%;
+         /* Put the pivot at the center of the bottom edge so the tips fan out
+    while the bases stay together. */
+         transform-origin: 50% 100%;
+         top: 30%;
+         left: 50%;
+         transform: translate(-50%, 0);
+      }
+
+      /* nth-child counts all children of .cartoon in HTML order. Since the
+   feathers come first, odd and even alternate the feather colors. */
+      .tail:nth-child(odd) {
+         background: var(--orange1);
+      }
+
+      .tail:nth-child(even) {
+         background: var(--orange2);
+      }
+
+      /* Each transform replaces the base transform, so keep translate to
+   center every feather on the same line. One upright feather and pairs
+   of equal positive and negative angles make a symmetric fan.
+   Add the 17deg rule first and toggle transform-origin in DevTools. */
+      .tail:nth-child(1) {
+         transform: translate(-50%, 0) rotate(0);
+      }
+
+      .tail:nth-child(2) {
+         transform: translate(-50%, 0) rotate(17deg);
+      }
+
+      .tail:nth-child(3) {
+         transform: translate(-50%, 0) rotate(34deg);
+      }
+
+      .tail:nth-child(4) {
+         transform: translate(-50%, 0) rotate(51deg);
+      }
+
+      .tail:nth-child(5) {
+         transform: translate(-50%, 0) rotate(68deg);
+      }
+
+      .tail:nth-child(6) {
+         transform: translate(-50%, 0) rotate(85deg);
+      }
+
+      .tail:nth-child(7) {
+         transform: translate(-50%, 0) rotate(102deg);
+      }
+
+      .tail:nth-child(8) {
+         transform: translate(-50%, 0) rotate(-17deg);
+      }
+
+      .tail:nth-child(9) {
+         transform: translate(-50%, 0) rotate(-34deg);
+      }
+
+      .tail:nth-child(10) {
+         transform: translate(-50%, 0) rotate(-51deg);
+      }
+
+      .tail:nth-child(11) {
+         transform: translate(-50%, 0) rotate(-68deg);
+      }
+
+      .tail:nth-child(12) {
+         transform: translate(-50%, 0) rotate(-85deg);
+      }
+
+      .tail:nth-child(13) {
+         transform: translate(-50%, 0) rotate(-102deg);
+      }
+   </style>
 </head>
+
 <body>
-    <div class="turkey">
-        <div class="tail"></div>
-        <div class="tail"></div>
-        <div class="tail"></div>
-        <div class="tail"></div>
-        <div class="tail"></div>
-        <div class="tail"></div>
-        <div class="tail"></div>
-        <div class="tail"></div>
-        <div class="tail"></div>
-        <div class="tail"></div>
-        <div class="tail"></div>
-        <div class="tail"></div>
-        <div class="tail"></div>
-        <div class="leg"></div>
-        <div class="leg"></div>
-        <div class="body"></div>
-        <div class="wings"></div>
-        <div class="wings"></div>
-        <div class="hat-top"></div>
-        <div class="hat-bottom"></div>
-        <div class="head"><div class="eye"></div>
-        <div class="beak"></div>
-        <div class="red"></div></div>
-        
-    </div>
+   <div class="sun-pair">
+      <div class="sun"></div>
+      <div class="sun small"></div>
+   </div>
+   <div class="spaceship">
+      <div class="ship-wing upper"></div>
+      <div class="ship-wing lower"></div>
+      <div class="ship-engine upper"></div>
+      <div class="ship-engine lower"></div>
+      <div class="ship-body"></div>
+      <div class="ship-cockpit"></div>
+      <div class="ship-marking"></div>
+      <div class="ship-fin"></div>
+   </div>
+   <div class="desert-hut"></div>
+   <div class="cartoon">
+      <div class="tail"></div>
+      <div class="tail"></div>
+      <div class="tail"></div>
+      <div class="tail"></div>
+      <div class="tail"></div>
+      <div class="tail"></div>
+      <div class="tail"></div>
+      <div class="tail"></div>
+      <div class="tail"></div>
+      <div class="tail"></div>
+      <div class="tail"></div>
+      <div class="tail"></div>
+      <div class="tail"></div>
+      <div class="leg"></div>
+      <div class="leg"></div>
+      <div class="body"></div>
+      <div class="wing"></div>
+      <div class="wing"></div>
+      <div class="robe">
+         <div class="robe-sleeve left"></div>
+         <div class="robe-sleeve right"></div>
+      </div>
+      <div class="robe-arm left"></div>
+      <div class="robe-arm right"></div>
+      <div class="lightsaber"></div>
+      <div class="turkey-hand"></div>
+      <div class="turkey-hand left"></div>
+      <div class="hat-top"></div>
+      <div class="hat-bottom"></div>
+      <div class="head">
+         <div class="eye"></div>
+         <div class="beak"></div>
+         <div class="red"></div>
+      </div>
+   </div>
+
+
 </body>
+
 </html>
