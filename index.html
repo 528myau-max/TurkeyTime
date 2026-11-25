@@ -840,10 +840,31 @@
       .tail:nth-child(13) {
          transform: translate(-50%, 0) rotate(-102deg);
       }
+      .title {
+   position: fixed;
+   top: 1.5%;
+   left: 50%;
+   transform: translateX(-50%);
+   z-index: 999;
+   margin: 0;
+   color: #fff;
+   font-family: "Orbitron", "Trebuchet MS", sans-serif;
+   font-size: clamp(2.5rem, 7vmin, 5rem);
+   font-weight: 900;
+   letter-spacing: 0.12em;
+   text-align: center;
+   white-space: nowrap;
+   text-shadow:
+      0 0 0.5rem #fff,
+      0 0 1rem #00eaff,
+      0 0 2rem #00bfff,
+      0 0 4rem #008cff;
+}
    </style>
 </head>
 
 <body>
+   
    <h1 class="title">Gobble Walker</h1>
    <div class="sun-pair">
       <div class="sun"></div>
